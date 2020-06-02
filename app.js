@@ -21,8 +21,7 @@ var UIController = (function(){
 // GLOBAL APP CONTROLLER
 var controller = (function(budgetCtrl, UICtrl){
 
-    document.querySelector('.add__btn').addEventListener('click', function() {
-        
+    var ctrlAddItem = function() {
         // 1. Get the filed input data
 
         // 2. Add the item to the budget controller
@@ -33,11 +32,18 @@ var controller = (function(budgetCtrl, UICtrl){
 
         // 5. Display the budget on the UI
 
-    });
+        console.log('It works!');
+    }
 
+    document.querySelector('.add__btn').addEventListener('click', ctrlAddItem);
 
     document.addEventListener('keypress', function(event){
-        console.log(event); // if you check the keyCode property you will see the key that was pressed!
+
+        if (event.keyCode === 13 || event.which == 13) { // older browsers use the which property, not the keyCode property
+            ctrlAddItem();
+        }
+        
+
     });
     
 
