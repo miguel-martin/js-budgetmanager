@@ -8,7 +8,7 @@ var budgetController = (function(){
     }
 
     return {
-        publicTest: function(){
+        publicTest: function(b){
             return(add(b));
         }
     }
@@ -37,3 +37,5 @@ var controller = (function(budgetCtrl, UICtrl){
     }
 
 })(budgetController, UIController);
+
+// call controller.anotherPublic(5) from console and check it works!
