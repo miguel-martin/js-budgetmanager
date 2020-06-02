@@ -1,22 +1,14 @@
-// Module declaration
+// BUDGET CONTROLLER
 var budgetController = (function(){
 
-    var x = 23;
-
-    var add = function(a){
-        return x + a;
-    }
-
-    return {
-        publicTest: function(b){
-            return(add(b));
-        }
-    }
+    // some code
 
 })();
 
 
 
+
+// UI CONTROLLER
 var UIController = (function(){
 
     // Some code
@@ -25,17 +17,13 @@ var UIController = (function(){
 
 
 
+
+// GLOBAL APP CONTROLLER
 var controller = (function(budgetCtrl, UICtrl){
 
-    // some code
-    var z = budgetCtrl.publicTest(5);
-
-    return {
-        anotherPublic: function(){
-            console.log(z);
-        }
-    }
+    document.querySelector('.add__btn').addEventListener('click', function() {
+        console.log("Button was clicked");
+    });
+    
 
 })(budgetController, UIController);
-
-// call controller.anotherPublic(5) from console and check it works!
