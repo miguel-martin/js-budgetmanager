@@ -112,6 +112,23 @@ var UIController = (function(){
 
         },
 
+        clearFields: function(){
+            var fields, fieldsArray;
+            // get the fields to clear...
+            fields = document.querySelectorAll(DOMstrings.inputDescription + ', ' + DOMstrings.inputValue);
+
+            // make an array...
+            fieldsArray = Array.prototype.slice.call(fields);
+
+            // clear all the fields...
+            fieldsArray.forEach(function(current, index, array){
+                current.value = "";
+            });
+
+            // set the focus to the first element (the description!)
+            fieldsArray[0].focus();
+        },
+
         getDOMstrings: function(){
             return DOMstrings;
         }
@@ -147,13 +164,16 @@ var controller = (function(budgetCtrl, UICtrl){
 
         // 1. Get the filed input data
         input = UICtrl.getInput();
-        console.log(input);
+        //console.log(input);
 
         // 2. Add the item to the budget controller
         newItem = budgetCtrl.addItem(input.type, input.desc, input.value);
 
         // 3. Add the new item to the UI
         UICtrl.addListItem(newItem, input.type);
+
+        // 4. Clear fields
+        UICtrl.clearFields();
 
         // 4. Calculate the budget
 
