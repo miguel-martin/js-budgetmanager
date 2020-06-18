@@ -116,7 +116,8 @@ var UIController = (function(){
         budgetLabel: '.budget__value',
         incomeLabel: '.budget__income--value',
         expensesLabel: '.budget__expenses--value',
-        percentageLabel: '.budget__expenses--percentage'
+        percentageLabel: '.budget__expenses--percentage',
+        container: '.container'
     };
 
     return {
@@ -134,11 +135,11 @@ var UIController = (function(){
             // Create html string with placeholder text
             if (type === 'inc'){
                 element = DOMstrings.incomeContainer;
-                html = '<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                html = '<div class="item clearfix" id="inc-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             } 
             else {
                 element = DOMstrings.expensesContainer;
-                html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             }
 
             // replace the placeholder text with some actual data
@@ -205,10 +206,13 @@ var controller = (function(budgetCtrl, UICtrl){
     
             if (event.keyCode === 13 || event.which == 13) { // older browsers use the which property, not the keyCode property
                 ctrlAddItem();
-            }
-            
-    
-        });
+            }    
+        }); 
+
+        // use event delegation to set up the listener to the common parent for incomes and expenses
+        document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
+
+
     };
 
     var updateBudget = function(){
@@ -251,6 +255,32 @@ var controller = (function(budgetCtrl, UICtrl){
 
     };
 
+    var ctrlDeleteItem = function(event) {
+
+        var itemID, splitID, type, ID;
+        
+        itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
+
+        if (itemID) {
+            //  inc-1
+            splitID = itemID.split('-'); // returns an array with [type, id]
+            type = splitID[0];
+            id = splitID[1];
+
+            // Delete the item for the data structure
+
+            // Delete the item from the UI
+
+            // update and show the new budget
+
+            
+        }
+
+
+
+
+    };
+
     return {
         init: function(){
             //console.log('Application has started');
@@ -259,7 +289,7 @@ var controller = (function(budgetCtrl, UICtrl){
                 totalInc: 0,
                 totalExp: 0,
                 percentage: -1
-            });
+            }); 
 
             setupEventListeners();
         }
